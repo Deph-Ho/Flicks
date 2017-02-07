@@ -6,6 +6,7 @@ iOS app that lets users view top movies in theatres
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
 Time spent: **5** hours spent in total
+-WILL ADD MORE FEATURES
 
 ## User Stories
 
