@@ -5,7 +5,8 @@ iOS app that lets users view top movies in theatres
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **X** hours spent in total
+Time spent: **5** hours spent in total
+-WILL ADD MORE FEATURES
 
 ## User Stories
 
@@ -13,8 +14,8 @@ The following **required** functionality is complete:
 
 - [x] User can view a list of movies currently playing in theaters from The Movie Database.
 - [x] Poster images are loaded using the UIImageView category in the AFNetworking library.
-- [ ] User sees a loading state while waiting for the movies API.
-- [ ] User can pull to refresh the movie list.
+- [x] User sees a loading state while waiting for the movies API.
+- [x] User can pull to refresh the movie list.
 
 The following **optional** features are implemented:
 
@@ -30,20 +31,26 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Explain more on how JSON works - does it show the structure of the API so that we know how to structure the UI? 
+2. How to view the movie descriptions fully when pressed
 
 ## Video Walkthrough 
 
-Here's a walkthrough of implemented user stories:
+http://imgur.com/oklkpJb
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/oklkpJb.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+The challenges in making this application was not understanding the full use of the methods and labels in Swift.  
+I had a problem with the network request snippet because my Xcode was an older version so the syntax was different than 
+the instructions and had bugs on all those lines.  Those got fixed during class with the help of TA's explaining
+that the best way was to follow Xcode's syntax by retyping it out to get the latest version/appropriate version.
+In the end, I did update Xcode to 8.0 to make sure I was up to date.  Major challenge was to figure out where to put
+the lines of code and trying to comprehend the logic and flow of the code.
 
 ## License
 
