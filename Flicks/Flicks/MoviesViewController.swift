@@ -10,18 +10,22 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var movies: [NSDictionary]?
     var endpoint = "now_playing"
+    var filteredMovies: [NSDictionary]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
+        
         
         //refresh control
         let refreshControl = UIRefreshControl()
@@ -34,7 +38,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
         let session = URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: OperationQueue.main)
         
-        //Display HUD right before the request is made 
+        //Display HUD right before the request is made
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         let task: URLSessionDataTask = session.dataTask(with: request, completionHandler: { (data, response, error) in
@@ -86,6 +90,39 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if let imageUrl = URL(string: baseUrl + posterPath){
            cell.posterImageView.setImageWith(imageUrl)
         }
+        /* Attempt
+        //load low to high resolution pictures
+        let smallImageUrl = URL(string: baseUrl + posterPath)
+        let largeImageURL = URL(string: baseUrl + posterPath)
+        let largeImageRequest = NSURLRequest(url: largeImageURL!)
+        let smallImageRequest = NSURLRequest(url: smallImageUrl!)
+        self.myImageView.alpha = 0.0
+        self.myImageView.image = smallImageUrl;
+
+        self.myImageView.setImageWithURLRequest(
+            smallImageRequest, placeholderImage: nil, success: {(smallImageRequest, smallImageResponse, smallImage) -> Void in
+                
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                self.myImageView.alpha = 1.0
+                }, completion: { (success) -> Void in
+                self.myImageView.setImageWithURLRequest(
+                    largeImageRequest,
+                    placeholderImage: smallImage,
+                    success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
+                            
+                        self.myImageView.image = largeImage;
+                            
+                },
+                    failure: { (request, response, error) -> Void in
+                        // do something for the failure condition of the large image request
+                        // possibly setting the ImageView's image to a default image
+                })
+            })
+    },
+        failure: { (request, response, error) -> Void in
+            // do something for the failure condition
+            // possibly try to get the large image
+    })*/
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
@@ -123,7 +160,29 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     
     }
+    /* Search Bar */
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        
+        if searchText.isEmpty{
+            filteredMovies = movies
+        }
+        else{
+            filteredMovies = searchText.isEmpty ? movies : movies!.filter({ (movie) -> Bool in
+                return (movie["title"] as! String).lowercased().hasPrefix(searchText.lowercased())
+            })
+        }
+        tableView.reloadData()
+    }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+    }
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
