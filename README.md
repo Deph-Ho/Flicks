@@ -5,7 +5,7 @@ iOS app that lets users view top movies in theatres
 
 Flicks is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: **5** hours spent in total
+Time spent: **11** hours spent in total
 -WILL ADD MORE FEATURES
 
 ## User Stories
@@ -37,7 +37,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 ## Video Walkthrough 
 http://imgur.com/a/VT2VL
 
-<img src='http://imgur.com/a/JkCg9' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/a/JkCg9.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
