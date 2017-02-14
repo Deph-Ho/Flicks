@@ -26,7 +26,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.delegate = self
         searchBar.delegate = self
         
-        
         //refresh control
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_refreshControl:)), for: UIControlEvents.valueChanged)
@@ -64,6 +63,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
 
         // Do any additional setup after loading the view.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -89,9 +89,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         let baseUrl = "https://image.tmdb.org/t/p/w500"
         if let imageUrl = URL(string: baseUrl + posterPath){
+           //fade images
+           cell.posterImageView.alpha = 0.0
            cell.posterImageView.setImageWith(imageUrl)
+            UIView.animate(withDuration: 0.5, animations: {() ->Void in
+                cell.posterImageView.alpha = 1.0
+            })
         }
-        
+        cell.selectionStyle = .blue
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
         
@@ -116,6 +121,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
          
         self.movies = dataDictionary["results"] as? [NSDictionary]
         self.filteredMovies = self.movies
+        
          
         //Reload the tableView for new data
         self.tableView.reloadData()
