@@ -21,8 +21,8 @@ The following **optional** features are implemented:
 
 - [ ] User sees an error message when there's a networking error.
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
-- [ ] User can search for a movie.
-- [ ] All images fade in as they are loading.
+- [x] User can search for a movie.
+- [x] All images fade in as they are loading.
 - [ ] Customize the UI.
 
 The following **additional** features are implemented:
@@ -35,10 +35,9 @@ Please list two areas of the assignment you'd like to **discuss further with you
 2. How to view the movie descriptions fully when pressed
 
 ## Video Walkthrough 
+http://imgur.com/a/VT2VL
 
-http://imgur.com/oklkpJb
-
-<img src='http://i.imgur.com/oklkpJb.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://i.imgur.com/VT2VL.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -51,6 +50,9 @@ the instructions and had bugs on all those lines.  Those got fixed during class 
 that the best way was to follow Xcode's syntax by retyping it out to get the latest version/appropriate version.
 In the end, I did update Xcode to 8.0 to make sure I was up to date.  Major challenge was to figure out where to put
 the lines of code and trying to comprehend the logic and flow of the code.
+
+Challenge Update 2/13/17
+Major challenges were trying to understand the conceptual meaning behind the code. I also had a hard time trying to figure out how to put on a button in the main view, and when the button is pushed, it moves to a the collectionview controller. I need to understand more what each variable represents and what the functions do.  A lot of challenges include trying to follow the general guide provided by CodePath, while making sure the code is in context to the project.  Also, it was hard trying to figure out where to put variables and methods in.  I keep mixing them up in different functions or different view classes.
 
 ## License
 
