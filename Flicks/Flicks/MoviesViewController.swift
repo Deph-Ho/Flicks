@@ -50,6 +50,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     MBProgressHUD.hide(for: self.view, animated: true)
                     
                     self.movies = dataDictionary["results"] as? [NSDictionary]
+                    self.filteredMovies = self.movies
                     
                     //Reload the tableView for new data
                     self.tableView.reloadData()
@@ -71,8 +72,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        if let movies = movies{
-           return movies.count
+        if let filteredMovies = filteredMovies{
+           return filteredMovies.count
         } else {
            return 0
         }
@@ -81,7 +82,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
         
-        let movie = movies![indexPath.row]
+        let movie = filteredMovies![indexPath.row]
         let title = movie["title"] as! String
         let overview = movie["overview"] as! String
         let posterPath = movie["poster_path"] as! String
@@ -90,39 +91,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         if let imageUrl = URL(string: baseUrl + posterPath){
            cell.posterImageView.setImageWith(imageUrl)
         }
-        /* Attempt
-        //load low to high resolution pictures
-        let smallImageUrl = URL(string: baseUrl + posterPath)
-        let largeImageURL = URL(string: baseUrl + posterPath)
-        let largeImageRequest = NSURLRequest(url: largeImageURL!)
-        let smallImageRequest = NSURLRequest(url: smallImageUrl!)
-        self.myImageView.alpha = 0.0
-        self.myImageView.image = smallImageUrl;
-
-        self.myImageView.setImageWithURLRequest(
-            smallImageRequest, placeholderImage: nil, success: {(smallImageRequest, smallImageResponse, smallImage) -> Void in
-                
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                self.myImageView.alpha = 1.0
-                }, completion: { (success) -> Void in
-                self.myImageView.setImageWithURLRequest(
-                    largeImageRequest,
-                    placeholderImage: smallImage,
-                    success: { (largeImageRequest, largeImageResponse, largeImage) -> Void in
-                            
-                        self.myImageView.image = largeImage;
-                            
-                },
-                    failure: { (request, response, error) -> Void in
-                        // do something for the failure condition of the large image request
-                        // possibly setting the ImageView's image to a default image
-                })
-            })
-    },
-        failure: { (request, response, error) -> Void in
-            // do something for the failure condition
-            // possibly try to get the large image
-    })*/
         
         cell.titleLabel.text = title
         cell.overviewLabel.text = overview
@@ -147,6 +115,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         print(dataDictionary)
          
         self.movies = dataDictionary["results"] as? [NSDictionary]
+        self.filteredMovies = self.movies
          
         //Reload the tableView for new data
         self.tableView.reloadData()
@@ -162,10 +131,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     /* Search Bar */
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
+        //if search bar is empty
         if searchText.isEmpty{
             filteredMovies = movies
         }
+        //when search bar is not empty, return the filtered title list
         else{
             filteredMovies = searchText.isEmpty ? movies : movies!.filter({ (movie) -> Bool in
                 return (movie["title"] as! String).lowercased().hasPrefix(searchText.lowercased())
@@ -182,6 +152,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         searchBar.showsCancelButton = false
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        //show original menu
+        filteredMovies = movies
+        self.tableView.reloadData()
     }
     // MARK: - Navigation
 
